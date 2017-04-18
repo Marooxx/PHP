@@ -281,6 +281,33 @@ switch($couleur){// les 'case' représente des cas différents dans lesquel nous
  else{
 	 echo ' Vous aimez la couleur jaune <br>';
  }
+ //*****************************************************************************************************
+ echo '<hr><h2> Sructure itérative : boucles</h2>';
+ 
+ $i = 0;// initialiser  une boucle -- valeur de départ
+ while($i<3){// TANT QUE la condition est respectée -- Tant que $i est inférieur à 3
+	 echo $i.'<br>';
+	 $i++;// ceci est une forme contractée de : $i = $i+1
+ }// 
+ 
+ //-------------------------- EXERCICE -----------------------------------------------------------
+ // faites en sorte de ne pas avoir les tirets à la fin :
+ 
+ $i = 0;
+ while($i<3){
+	 if($i == 2){
+		 echo $i;
+	 }
+	 else{
+		 echo "$i---";// cas par defaut si la valeur ne rentre pas dans le 'if'
+	 }
+	 $i++;
+ }
+ 
+
+ 
+	
+ 
 
  
  
