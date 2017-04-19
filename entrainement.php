@@ -377,4 +377,118 @@ echo"</table>";
  echo '<br>Date : <br>';
  echo date ("d/m/Y");//  exemple de la fonction prédéfinie permettant de renvoyer la date. le 'Y' majuscule permet d'obtenir '2017' alors que le 'y' minuscule affiche '17'
  // Quand on utilise une fonction prédéfinie , on doit toujours se demander ce que l'on doit lui envoyer comme argument/paramètres pour qu'elle s'éxécute et ce qu'elle peut retourner
+ //-------------------------------------------------------------------------
+ echo'<hr><h2>Fonctions prédéfinies : traitement des chaînes</h2>';
+ $email ="omar.hamzi@lepoles.com";// on pose un argument
+ echo strpos($email,"@");// permet de savoir où se trouve la position d'un caractère
+ $email2 = "Bonjour";
+ echo strpos($email2,"@");// cette ligne ne retourne rien pourtant, elle retourne FALSE.
+ echo'<br>';
+ var_dump(strpos($email2,"@"));
+ echo'<br>';
+ /* var_dump sert au débuggage.Grâce à cette fonction , on peut apercevoir le FALSE si le caractère est "@" n'est pas trouvé(de trouver des éléments masquer). var_dump est une instruction améliorée d'affichage que l'on utilise régulièrement en phase de développement
+// "strpos()" est une fonction prédéfinie permettant de trouver la position d'un caractère dans une chaîne:
+// Succes : int(entier)
+// échec: boolean
+/* argument(s):
+1.Nous devons lui fournir la chaîne dans laquelle nous souhaitons chercher
+2.Nous devons lui fournir l'information à chercher.
+Contexte : nous pourrons l'utiliser pour savoir si une adresse email à un format conforme.*/
  
+// REMARQUE : echo strrpos($email,"m");// affiche le dernier caractère de la variable $email
+ 
+ //------fonction pour calculer la taille d'une chaîne de caractère---------------------------------------------------------------
+ 
+ $phrase = " hello world";
+ echo iconv_strlen($phrase);
+ echo '<br>';
+ // iconv_strlen() compte le nombre d'éléments dans la chaîne de caractère
+ /* iconv_strlen() est une fonction prédéfinie permettant de retourner la taille d'une chaîne de caractère:
+ succes: renvoie un chiffre ou int(entier)
+ echec : renvoie un boolean (FALSE) 
+ Nous devons lui fournir, en ragument, la chaîne dans laquelle nous souhaitons connaître la taille
+ contexte : nous pourrons l'utiliser pour savoir si le pseudo et le mot de passe ont des tailles conformes lors d'une inscription.*/
+ 
+ //------------------------------------------------------------------------
+ 
+$texte= "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tincidunt arcu et libero consectetur tempor. Curabitur libero nunc, gravida hendrerit nisl hendrerit, rutrum rutrum risus. Nulla a aliquam arcu. Mauris at velit sit amet orci laoreet placerat. Fusce cursus dui eu sapien faucibus, a porta purus pellentesque. Mauris eu quam vitae est sagittis vehicula. Vestibulum a ligula vel tortor sollicitudin porta nec at lacus. Vestibulum fermentum tempus turpis sed ultricies. Nam tincidunt erat a laoreet hendrerit. Nullam in turpis id ex rhoncus bibendum. Vestibulum maximus convallis nibh in interdum. Etiam congue velit nisl, et dignissim sem interdum vitae.
+
+Nullam fringilla molestie quam nec facilisis. Integer sit amet porta sem. Cras sed vulputate ligula, sit amet laoreet nibh. Donec mi metus, maximus ac consectetur eget, sodales vel sem. Proin vel tellus arcu. Integer tellus risus, maximus nec dictum ut, eleifend vitae lacus. Sed cursus lobortis scelerisque.";
+
+
+echo substr($texte,0,20)."...<a href=''>Lire la suite</a>";
+echo '<br>';
+/* surbstr() est une fonction prédéfinie permettant de retourner une partie de la chaine de caractère
+En cas de succes = affiche un chiffre
+En cas d'échec = affiche FALSE 
+Arguments:
+1.Nous devons lui fournir la chaine que l'on souhaite couper
+2.Nous devons lui préciser la position du début 
+3.Nous devons lui préciser la position de fin
+Contexte:
+substr()est souvent utiliser dans l'affichage des actualités avec une "accroche"*/
+//******************************* FONCTIONS UTILISATEURS*****************************************
+echo "<hr><h2>Fonctions utilisateurs</h2>";
+
+function separation(){// déclaration d'une fonction ici sans arguments.
+	echo"<hr><hr><hr>";// a l'intérieur on précise les instructions que le script doit appliquer
+}
+separation();// ne pas oublier les parenthèses lorsqu'on appelle la fonction. Pas besoin de "echo" pour appeller une fonction
+// les fonctions qui ne sont pas prédéfinies dans le langage sont déclarées puis éxécutées par l'utilisateur
+//Nous aurions pu donner un autre nom à cette fonction. C'est au développeur de donner une fonction
+//------------------------------------fonctions utilisateurs avec arguments-----------------------------------------------------------
+ function bonjour($qui){// fonction affectée d'une variable neutre, une variable dite "de réception". 
+	 echo "Bonjour $qui <br>";// instructions à éxécuter
+ }
+ bonjour('Pierre');// ici, la variable en paramètre a pris la valeur "Pierre". On lui a stocké une donnée quelconque
+$prenom = 'Stevy';
+bonjour($prenom);// on peut aussi y assigné une variable et afficher ce qu'elle contient
+// les arguments sont des paramètres fournis à la fonction et lui permettent de compléter ou modifier son comportement initialement prévu
+//----------------------
+function tva($nombre){
+	return $nombre*1.2;// 'return' permet de retourner une  valeur et d'arrêter le script
+}
+echo tva(150);// pour éxécuter la fonction , on place un "echo" puisque l'on utilise le mot clé "return" au sein de la fonction
+// calcul du taux de tva à 20% --> (1+20/100)
+// une fonction peut retourner quelque chose ( à ce moment là , on quitte la fonction)
+
+// Exercice : Pourriez vous améliorer cette fonction afin que l'on puisse calculé un nombre avec le taux de notre choix
+function taux_tva($nombre,$taux){// on peut appliquer plusieurs paramètres
+	return $nombre* (1+$taux/100);// calcul du taux tva = 1+x/100 donc on remplace n'importe quels nombres à la place de "x"ou '$taux'
+}
+echo taux_tva(150,20);
+echo'<br>';
+// attention nous ne pouvons pas nommer une fonction de la même manière
+//----------------------------------------------------------------------
+meteo("hiver",15);// on peut déclarer une fonction avant même de l'avoir déclarée
+function meteo($saison,$temperature){// avec 2 arguments à réceptionner et par conséquent à envoyer
+	echo "Nous sommes en $saison et il fait $temperature degrés <br>";
+}
+
+// Exercice : Gérer le s de degrés avec un if/else
+	function meteo1($saison,$temperature){
+		if($temperature<0){
+			echo "Nous sommes en $saison et il fait $temperature degrés";
+		}
+	elseif($temperature<=1){
+		echo"Nous sommes en $saison et il fait $temperature degré";
+		}
+	else{
+		echo"Nous sommes en $saison et il fait $temperature degrés";
+		
+	}
+	}
+	echo meteo1("été",-15);
+	
+	//correction
+	function exOmeteo($saison,$temperature){
+		echo "Nous sommes en $saison et il fait $temperature ";
+		if($temperature >1 || $temperature<-1){
+			echo"degrés";
+		}
+		else{
+			echo "degré";
+		}
+	}
+	
+	echo exOmeteo("hiver",-4);
