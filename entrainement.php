@@ -79,8 +79,8 @@ echo CAPITALE . '<br>';
 // par convention, une constante se déclare toujours en majuscule.
 
 // Constante magique
-echo__FILE__. "<br>";// indique le chemin complet du fichier en cours d'utilisation
-echo__LINE__. "<br>";// indique le numéro de la ligne sur laquelle on se trouve
+echo __FILE__. "<br>";// indique le chemin complet du fichier en cours d'utilisation
+echo __LINE__. "<br>";// indique le numéro de la ligne sur laquelle on se trouve
 //-----------------------------------------------------------------------------------------
 // Exercice : afficher BLEU-BLANC-ROUGE ( avec les tirets)en mettant chaque couleur dans une variable
 $bleu = 'BLEU ';
@@ -164,7 +164,7 @@ else{
 }
 echo '<br>';
 //----------------------------------------------------------------------------------------------------------
- if($a >$b && $b>$c)
+ if($a >$b && $b>$c)// il faut que les 2 conditions soient remplies
  {// si A est supérieur à B et que B est supérieur à C
 	 echo "ok pour les 2 conditions<br>"; // instruction d'affichage.
  }
@@ -292,22 +292,89 @@ switch($couleur){// les 'case' représente des cas différents dans lesquel nous
  
  //-------------------------- EXERCICE -----------------------------------------------------------
  // faites en sorte de ne pas avoir les tirets à la fin :
- 
+ // 
  $i = 0;
- while($i<3){
+ while($i<3){// tant que $i est inférieur à 3
 	 if($i == 2){
-		 echo $i;
+		 echo $i;// si je rentre 1 fois ici
 	 }
 	 else{
-		 echo "$i---";// cas par defaut si la valeur ne rentre pas dans le 'if'
+		 echo "$i---";// cas par defaut si la valeur ne rentre pas dans le 'if'. je rentre 2 fois par ici 
 	 }
-	 $i++;
+	 $i++;// incrémentation du "compteur" pour que la boucle puisse tourner
  }
+ //***REMARQUES PERSOS 
  
+ //entre 0 et 1 , on entre dans le else car la valeur n'est pas égale à 2
+ // puis à 2 on applique le if car la valeur de $i est égale à 2
+ 
+ // boucle 'FOR'
+ echo'<br>';
+ 
+ for($j = 0 ; $j <16 ; $j++){// (valeur de départ ;condition d'entrée;incrémentation)
+	 echo 'yes'.'<br>';
+ }
 
- 
-	
- 
+//------------- TP-----------------------
+// afficher 30 options via une boucle
+echo '<select>';
+echo'<option></option>'; 
+echo '</select>';
 
- 
+// on évolue de manière croissante
+echo '<select>';
+for($o = 0 ; $o <= 30; $o++)
+{
+	echo "<option>$o</option>";
+}
+echo '</select>';
+
+// on évolue  de manière décroissante
+ echo '<select>';
+for($o = 30; $o > 0; $o--)
+{
+	echo "<option>$o</option>";
+}
+echo '</select>';
+
+//-----------------------création d'une ligne de tableau-------------------------------------
+echo "<table  border ='1' style='border-collapse:collapse;' >";
+echo "<tr>";
+for($o=0;$o <10; $o++){
+	echo "<td>$o</td>";
+}
+echo"</tr>";
+echo"</table>";
+//--------------- création de tableau avec une boucle imbriquée ------------------------------
+
+echo "<table  border ='1' style='border-collapse:collapse;' >";
+for($ligne =0 ; $ligne <10 ; $ligne++){// on doit prévoir le nombre de ligne à créer que l'on souhaite avant de lancer la balise <tr>
+	echo '<tr>';
+// 2eme boucle imbriquée
+for($cellule= 0;$cellule <10; $cellule++){
+	echo "<td>".(10*$ligne+$cellule)."</td>";
+	}
+	echo '</tr>';
+}
+echo"</table>";
+// 2eme solution 
+
+$compteur = 0;// on crée une variable pour afficher le n° de cellule
+ echo "<table  border ='1' style='border-collapse:collapse;' >";
+for($ligne =0 ; $ligne <10 ; $ligne++){// on doit prévoir le nombre de ligne que l'on souhaite créer avant de lancer la balise <tr>
+	echo '<tr>';
+// 2eme boucle imbriquée
+for($cellule= 0;$cellule <10; $cellule++){
+	echo "<td>".$compteur."</td>";$compteur++;
+	}
+	echo '</tr>';
+}
+echo"</table>";
+
+ //**********************************************************************************
+ echo'<hr><h2>FONCTIONS PREDEFINIES</h2>';
+ // une founction prédéfinie permet de réaliser un traitement spécifique.On peut consulter le doc sur php.net.
+ echo '<br>Date : <br>';
+ echo date ("d/m/Y");//  exemple de la fonction prédéfinie permettant de renvoyer la date. le 'Y' majuscule permet d'obtenir '2017' alors que le 'y' minuscule affiche '17'
+ // Quand on utilise une fonction prédéfinie , on doit toujours se demander ce que l'on doit lui envoyer comme argument/paramètres pour qu'elle s'éxécute et ce qu'elle peut retourner
  
