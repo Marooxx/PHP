@@ -480,7 +480,7 @@ function meteo($saison,$temperature){// avec 2 arguments à réceptionner et par
 	}
 	echo meteo1("été",-15);
 	
-	//correction
+	//correction exercice
 	function exOmeteo($saison,$temperature){
 		echo "Nous sommes en $saison et il fait $temperature ";
 		if($temperature >1 || $temperature<-1){
@@ -492,3 +492,22 @@ function meteo($saison,$temperature){// avec 2 arguments à réceptionner et par
 	}
 	
 	echo exOmeteo("hiver",-4);
+	echo'<br>';
+	
+//--------------------------------------------------------
+$pays = "France";
+function affichagePays(){
+	global $pays;// le mot-clé "global" permet d'appeler ma variable à l'intérieur de ma fonction et de pouvoir l'utiliser
+	echo $pays;
+	/* le 'echo' qui suit ne fonctionne pas si nous n'avions pas mis le mot clé "global" pour importer tout ce qui est déclaré dans l'espace local(à l'intérieur de la fonction). Tout ce qui est à l'extérieur d'une fonction s'appelle l'espace global.*/ 
+	
+}
+ affichagePays();
+ echo '<br>';
+ //------------------- ----------------------------
+ function jourSemaine(){
+	 $jour = 'Lundi';// variable locale
+	 return $jour;// avec le "return" on sort de la fonction
+	 echo 'ALLO';// le "echo " ne sera pas pris en compte car on sort de la fonction avec "return"
+ //echo $jour; ne fonctionne pas car cette variable n'est connue qu'à l'intérieur de la fonction ( donc en espace locale)
+echo jourSemaine();// on éxécute la fonction ici
