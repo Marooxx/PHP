@@ -538,14 +538,64 @@ echo'</pre>';
 // Exercice : tenter d'extraire de sortir et d'afficher "Italie" en passant par le tableau
 echo $tab[1];// on va rechercher la valeur de l'indice 1 dans la variable $tab
 echo'<hr>';
-//la boucle 'foreach.. as..' permet de parcourir tout le tableau et n'est utilisable que dans ce cas
+//la boucle 'foreach(.. as..)' permet de parcourir tout le tableau et n'est utilisable que dans ce cas
 foreach($tab as $info){// $info est une variable de réception- Elle va permettre d'afficher les valeurs du tableau
 echo $info;
 echo '<br>';
 // le mot "as" fait partie du langage et est OBLIGATOIRE.	
 }
 
-// une fois que la boucle foreach..as.. a terminé de parcourir le tableau , le script s'arrête
+// une fois que la boucle foreach(..as..) a terminé de parcourir le tableau , le script s'arrête
 // la boucle "foreach..as..." est un moyen simple de passer en revue un tableau.
-//foreach fonctionne uniquement dans les tableaux.Elle retournera une erreur si on tente de l'utiliser sur une variable d'un autre type.
+//foreach() fonctionne uniquement dans les tableaux.Elle retournera une erreur si on tente de l'utiliser sur une variable d'un autre type.
+
+echo'<hr>';
+foreach($tab as $indices =>$valeur){//=> on demande d'extraire les valeurs de la variable $indices
+	echo $indices.':'.$valeur.'<br>';
+}
+// Lorsqu'il y a 2 variables, la 1ere parcours la colonne des indices et la 2nd parcours la colonne des valeurs
+
+$couleur=array("j" =>"jaune","v"=>"vert","r"=>"rouge","o"=>"orange");//=> permet d'affecter une valeur à nos indices. On peut donc choisir les indices à affecter à nos valeurs
+echo'<pre>';print_r($couleur);echo'</pre>';
+//------------ Compter la taille de lignes dans un tableau-------------------------------------
+echo'taille du tableau :'.count($couleur).'<br>';// affiche le nombre d'éléments dans un tableau. Ici 4
+echo 'taille du tableau : '.sizeof($couleur).'<br>'; // idem que count()
+
+echo implode("-",$couleur).'<br>';// implode() permet d'afficher les valeurs d'un tableau
+// implode() est une fonction prédéfinie qui permet de rassembler les éléments d'un tableau en une chaîne(séparé par un symbole)
+
+//------------------------------------TABLEAUX Multidimensionnels-------------------------------------------
+echo'<hr><h2>Tableau multidimensionnel</h2>';
+//Nous parlons de tableau multidimensionnel quand un tableau est contenu dans un tableau
+
+
+$tab_multi = array(0=>array("prenom"=>"Omar",'nom'=>'HAMZI'),1=>array("prenom"=>'Luffy','nom'=>'Monkey. D'));
+echo '<pre>';print_r($tab_multi);echo '</pre>';
+// exercice: tenter de sortir et d'afficher le nom du tableau multidimensionnel sans faire "echo Luffy"
+echo $tab_multi[1]['nom'];// on indique le 1ere indice puis le second indice pour afficher le 'nom'
+//---------------------SUPER GLOBALES-------------------------------------------------------------
+echo '<hr><h2>LEs super globales</h2>';
+/*les super globales permettent de stocker des informations
+les super globales sont des variables array , internes et prédéfinies par PHP, qui sont toujours disponibles
+quelque soit le contexte.
+
+Pour rappel, une variable array permet de conserver un ensemble de valeurs.
+Lorsque l'on parle de disponibilité , on exprime le fait que les super globales sont à la fois disponibles dans l'espace globale( espace par défaut dans php) mais aussi dans l'espace local(dans une fonction).
+
+$_GET-- permet de récupérer des infos dans l'url-- contient des informations fournies en paramètre via la method GET par l'url.
+
+$_POST -- permet de récupérer des infos dans les formulaires-- contient des informations fournies par un formulaire via la method POST
+
+$_SERVER -- permet de récupérer des infos issues des serveurs-- contient toutes les informations fournies par le serveur web
+
+$_FILES -- contient des infos dans des photos -- contient les informations liées à l'upload d'un (ou plusieurs) fichier(s) par un formulaire
+
+$_COOKIE -- permet de récupérer des infos conservées dans un navigateur -- contient des informations fournies par le fichier cookie
+
+$_SESSION -- permet de récupérer des infos lors de notre navigation -- contient des informations de la session en cours
+*/
+
+echo '<pre>';print_r($_SERVER);echo'</pre>';
+
+
 
