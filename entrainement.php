@@ -508,6 +508,44 @@ function affichagePays(){
  function jourSemaine(){
 	 $jour = 'Lundi';// variable locale
 	 return $jour;// avec le "return" on sort de la fonction
-	 echo 'ALLO';// le "echo " ne sera pas pris en compte car on sort de la fonction avec "return"
+	 echo 'ALLO';
+ }// le "echo " ne sera pas pris en compte car on sort de la fonction avec "return"
  //echo $jour; ne fonctionne pas car cette variable n'est connue qu'à l'intérieur de la fonction ( donc en espace locale)
 echo jourSemaine();// on éxécute la fonction ici
+//**************************************************************************************************************
+        echo'<hr><h2> TABLEAU DE DONNEES ARRAY</h2>';
+	/*
+	un tableau est déclaré un peu comme une variable améliorée , car nous ne conservons pas qu'une valeur mais un 
+	ensemble de valeur
+	*/
+	
+	$liste = array("Grégory","Nathalie","Emile","Luffy");
+	echo $liste;// Ne fonctionne pas , on ne peut pas passer par un "echo"classique pour voir le contenu de notre tableau Array
+	var_dump($liste);// la fonction permet de voir ce qu'il y a dans la variable ainsi que le type d 'éléments dans le tableau
+	echo '<pre>';var_dump($liste);echo'</pre>';// si on souhaite plus de détail concernant un tableau
+	echo '<pre>';print_r($liste);echo'</pre>';// pour avoir une vision plus simple des données d'un tableau
+// Contexte : Bien souvent, lorsque l'on récuperera des informations en BDD,nous les retrouverons sous forme d'ARRAY
+// la table ARRAY permet de stocker plusieurs données contrairement à une variable
+//----------------------------------------------------------------------------------
+echo '<hr><h2>boucle foreach pour les tableaux de données ARRAY</h2>';
+$tab[] = 'FRANCE';
+$tab[] = 'ITALIE';
+$tab[] = 'ESPAGNE';
+$tab[] = 'BRESIL';
+$tab[] = 'FIDJI';
+echo '<pre>'; print_r($tab); 
+echo'</pre>';
+// Exercice : tenter d'extraire de sortir et d'afficher "Italie" en passant par le tableau
+echo $tab[1];// on va rechercher la valeur de l'indice 1 dans la variable $tab
+echo'<hr>';
+//la boucle 'foreach.. as..' permet de parcourir tout le tableau et n'est utilisable que dans ce cas
+foreach($tab as $info){// $info est une variable de réception- Elle va permettre d'afficher les valeurs du tableau
+echo $info;
+echo '<br>';
+// le mot "as" fait partie du langage et est OBLIGATOIRE.	
+}
+
+// une fois que la boucle foreach..as.. a terminé de parcourir le tableau , le script s'arrête
+// la boucle "foreach..as..." est un moyen simple de passer en revue un tableau.
+//foreach fonctionne uniquement dans les tableaux.Elle retournera une erreur si on tente de l'utiliser sur une variable d'un autre type.
+
