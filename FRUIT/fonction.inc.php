@@ -10,5 +10,5 @@ function calcul($fruit,$poids){// fonction à 2 arguments où on y déclare 2 varia
 	$resultat = round(($poids*$prix_kg/1000),2);// on veut le prix en grammes donc on divise par 1000 (1000 grammes = 1kg)
 	return "les ".$fruit." coûtent ".$resultat." euros pour ".$poids." grammes ";
 }
-echo calcul('cerises',1000);
+//echo calcul('cerises',1000);
 

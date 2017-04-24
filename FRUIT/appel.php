@@ -4,5 +4,7 @@ sans copier coller
 
 */
 
-include_once('fonction.inc.php');
-echo calcul('bananes',500);
+include('fonction.inc.php');
+echo calcul('pommes',1500);
+// avec la fonction includ(), on connecte les 2 pages et leurs contenus
+// on importe les éléments de la page fonction.inc.php sur la page appel.php
