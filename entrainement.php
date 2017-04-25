@@ -597,5 +597,24 @@ $_SESSION -- permet de récupérer des infos lors de notre navigation -- contien
 
 echo '<pre>';print_r($_SERVER);echo'</pre>';
 
+//****************OBJETS****************************************************************************************************************************
+echo'<hr><h2>Objets</h2>';
+// Un objet est un autre type de donnée à la manière d'un ARRAY.Il permet de regrouper une certains nombres d'informations. Cependant,cela va beaucoup plus loin car on peut y déclaré des variables , des fonctions. 
 
+class etudiant{
+	public $prenom="Omar";
+	public $age=37;
+	public function pays()
+	{
+		return"FRANCE";
+	}
+}
+// "public" permet de rendre les éléments (variables,functions) accessible partout.Il existe aussi protected et private
 
+$objet=new etudiant();// avec le mot clé "new", on crée un objet dans une variable. la variable $objet est devenu un objet.
+echo'<pre>';print_r($objet);echo'</pre>';
+// On extrait des éléments de l'objet : 
+echo $objet->prenom.'<br>'; 
+// la flèche " -> " permet d'aller extraire un élément de mon objet
+echo $objet->age.' ans'.'<br>';
+// Nous pouvons piocher dans un ARRAY avec les crochets[].
