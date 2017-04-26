@@ -96,6 +96,7 @@ $resultat = $mysqli->query("SELECT* FROM employes ");
 
 echo'<table border="1" style="border-collapse:collapse;"><tr>';
 while($colonne = $resultat ->fetch_field()){//sert à récupérer les entêtes, les champs du tableau
+// $colonne est issur de la classe STD
 	echo'<th>'.$colonne->name.'</th>';
 }// la bouche va tourner tant qu'il y aura de champs
 echo'</tr>';
@@ -109,3 +110,19 @@ while($ligne = $resultat->fetch_assoc()){
 
 }
 echo '</table>';
+//----------- Commentaires--------------------------------------
+/*
+Pour consulter le nom des champs /colonnes de la table SQL,nous aurons besoin d'utiliser la méthode "fetch_field()" issu de la classe MYSQLI_RESULT qui permet de RECOLTER des informations sur les champs/colonnes
+
+La boucle "While" est présente pour répéter cette action puisqu'il y a plusieurs champs/colonnes à afficher.On obtient un objet $colonne issue d'une autre classe :stdclass
+$colonne->name : permet de récolter les noms des champs de la table.
+
+fetch_assoc(), issue de la classe MYSQLI_RESULT , permet de traiter le résultat et le rendre exploitable sous forme de tableau ARRAY.
+
+While va permettre de répéter cette action TANT QUE il y' a des résultats et de passer à la ligne d'enregistrement suivante pour faire avancer les traitements
+
+La bouche "foreach(.. as..)" va nous permettre de parcourir notre tableau ARRAY par la variable $ligne et d'afficher chacune des informations contenues à l'intérieur.
+
+Pour résumé:
+La boucle "while" est présente pour traiter chaque employé ( et avancer sir l'employer suivant) tandis que la boucle "foreach(..as..)",est présente pour traiter et afficher chaque information pour chaque employé.
+*/
