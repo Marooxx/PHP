@@ -94,14 +94,14 @@ observer le nombre d'enregistrement récupéré et affiché par une requête.
 $result = $pdo->query("SELECT*FROM employes");
 
 echo"<table border='1' style='border-collapse:collapse';><tr>";
-
-for($i=0;$i<$result->columnCount();$i++)
+// on commence par définir le nombre de colonnes on a besoin
+for($i=0;$i<$result->columnCount();$i++)// permet de compter le nbre de champs sur ma table
 {
-	$colonne = $result->getcolumnMeta($i);
+	$colonne = $result->getcolumnMeta($i);// recup tous les infos dans les entêtes , les titres des colonnes, le nom des champs
 	echo '<th>'.$colonne['name'].'</th>';
 }
 echo '</tr>';
-
+// on récolte les informations dans chaque champs
 while($ligne = $result->fetch(PDO::FETCH_ASSOC)){
 	echo '<tr>';
 	foreach($ligne as $indice=>$informations){
@@ -110,8 +110,17 @@ while($ligne = $result->fetch(PDO::FETCH_ASSOC)){
 	echo '</tr>';
 }
 echo '</table>';
+//---------COMMENTAIRES--------------------------------------------------
+/*
+columnCount() est une méthode issue de la classe PDOSTATEMENT qui sert à connaître  combien il y a de champs/colonnes au total
 
+La boucle for est donc présente pour répéter l'action d'affichage et le traitement puisqu'il y a plusieurs champs/colonne à afficher
 
+Pour  consulter le nom des champs/colonnes de la table SQL, nous utiliserons la méthode getcolumnMeta() qui nous permet de récolter des informations sur les champs/colonnes sous forme de tableau aRRAY.
+
+$colonne est donc un tableau ARRAY
+
+*/
 
 
 
