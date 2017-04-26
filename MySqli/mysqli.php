@@ -70,6 +70,42 @@ le résultat sous forme d'objet MYSQLI_RESULT n'est pas exploitable en état
 La méthode 'fetch_assoc()' issu de la classe MYSQLI_RESULT permet de rendre ce résultat exploitable sous forme de tableau ARRAY associatif
 
 $employe est donc un tableau ARRAY associatif ( associatif = avec des clés nominatives).
+*/
+//---------------------
+$result=$mysqli->query("SELECT*FROM employes");
+// on ne pas exploiter les données.
+// on crée une boucle
+while($employe = $result->fetch_assoc()){
+	//echo '<pre>';echo print_r($employe);echo'</pre>';
+	echo"Bonjour je suis $employe[prenom] $employe[nom] et je fais partie du service $employe[service]<br>";
+}
+	echo $result->num_rows.'enregistrement(s) récupéré(s) par la requête SELECT';
+	// la boucle va tourner jusqu'à la dernière ligne de mon tableau
+	
+//--------------- Commentaires--------------------
+/*Dans le cas d'une erreur de requête SQL,$result contiendra : (boolean) FALSE
+Dans le cas d'une bonne  requête SQL,$result contiendra : (objet)
+MYSQLIO_RESULT si la requête est bonne , on obtient un autre objet issu d'une autre classe (MYSQLI_RESULT)
 
+WHILE:
+Nous avons plusieurs lignes d'enregistrements. Il est donc nécessaire de répéter le traitement de la fonction(ou méthode) fetch_assoc() afin de rendre le résultat exploitable sous forme de ARRAY.
+La boucle "while" permet d'afficher chaque ligne de la table ( tant que l'on possède des enregistrements , ils seront affichés).
+*/
 
+$resultat = $mysqli->query("SELECT* FROM employes ");
 
+echo'<table border="1" style="border-collapse:collapse;"><tr>';
+while($colonne = $resultat ->fetch_field()){//sert à récupérer les entêtes, les champs du tableau
+	echo'<th>'.$colonne->name.'</th>';
+}// la bouche va tourner tant qu'il y aura de champs
+echo'</tr>';
+
+while($ligne = $resultat->fetch_assoc()){
+	echo'<tr>';
+	foreach($ligne as $indice=>$informations){// foreach va  permettre de parcourir les valeurs du tableau
+		echo '<td>'.$informations.'</td>';
+	}
+    echo'</tr>';
+
+}
+echo '</table>';
