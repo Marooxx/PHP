@@ -45,3 +45,31 @@ echo $mysqli->affected_rows.'enregistrement(s) affecté(s) par la requête DELETE 
 var_dump($result);
 
 
+// la flèche "->" sert à aller piocher des éléments dans l'objet
+
+//--------------------------REQUÊTE DE SELECTION--------------------------
+//on crée une variable de réception
+$result=$mysqli->query("SELECT*FROM employes WHERE prenom='Julien'");
+//on crée une autre variable de réception pour contenir $result
+$employe=$result->fetch_assoc();
+//fetch_assoc()-- permet transformer les données de l'objet sous forme de tableau
+echo'<pre>';print_r($employe);echo'</pre>';
+// on lit ce que $employe contient de manière exploitable.
+// les données du tableau deviennent claires au lieu d'être des chiffres
+echo"Bonjour , je suis $employe[prenom] $employe[nom] du service $employe[service] <br>";
+// autre manière d'afficher le résultat
+echo "Bonjour je suis".$employe['prenom'].$employe['nom']."du service".$employe['service'].'<br>';
+/* ---------Commentaires ----
+Nous avons prévu une variable $result juste avant la requête pour avoir un retour
+Dans le cas d'une erreur de requête SQL,$result contiendra : (boolean) FALSE
+Dans le cas d'une bonne  requête SQL,$result contiendra : (objet)
+MYSQLIO_RESULT si la requête est bonne , on obtient un autre objet issu d'une autre classe (MYSQLI_RESULT)
+
+fetch_assoc():
+le résultat sous forme d'objet MYSQLI_RESULT n'est pas exploitable en état
+La méthode 'fetch_assoc()' issu de la classe MYSQLI_RESULT permet de rendre ce résultat exploitable sous forme de tableau ARRAY associatif
+
+$employe est donc un tableau ARRAY associatif ( associatif = avec des clés nominatives).
+
+
+

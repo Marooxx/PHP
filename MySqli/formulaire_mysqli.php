@@ -1,9 +1,18 @@
 <?php
 // Exercice =  créer un formulaire HTML avec les champs correspondant à la table employé
+// Effectuer une requête d'insertion
 
 var_dump($_POST);
-
-
+$mysqli = new Mysqli("localhost","root","","entreprise");
+// cette syntax permet de se connecter à la base de donnée
+//"new" permet de créér un objet
+if($_POST){
+	
+$result = $mysqli->query("INSERT INTO employes(prenom,nom,sexe,service,date_embauche,salaire) VALUES('$_POST[prenom]','$_POST[nom]','$_POST[sexe]','$_POST[service]','$_POST[date]','$_POST[salaire]')");
+// ici nous avons fait une requête d'insertion. On y entre les données issues de la base de donnée. Puis on récupère les valeurs grâce à la méthode '$mysql->query'. On y introduit les valeurs grâce à $_POST et comme indice [ce qu'il ya dans le tag 'name']
+echo $mysqli->affected_rows.'enregistrement(s) affecté(s) par la requête INSERT<br>';
+var_dump($result);
+}
 ?>
 
 <h2>FORMULAIRE MySqli</h2>
