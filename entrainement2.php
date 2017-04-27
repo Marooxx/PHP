@@ -13,16 +13,25 @@ si le champs "titre " fait moins de 3 caractères ou plus de 20 caractères , in
 Afficher un message lorsqu'un produit a bien été enregistré
 */
 
-
+?>
+<?php
 var_dump($_POST);
-$pdo = new PDO('mysql:host=localhost;dbname=entreprise','root','', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_WARNING,PDO::MYSQL_ATTR_INIT_COMMAND=>'SET NAMES utf8'));
-if($_POST){
-	
-$resultat = $pdo->exec("INSERT INTO employes(prenom,nom,sexe,service,date_embauche,salaire) VALUES('$_POST[prenom]','$_POST[nom]','$_POST[sexe]','$_POST[service]','$_POST[date]','$_POST[salaire]')");
-// ici nous avons fait une requête d'insertion. On y entre les données issues de la base de donnée. Puis on récupère les valeurs grâce à la méthode '$pdo->exec'. On y introduit les valeurs grâce à $_POST et comme indice [ce qu'il ya dans le tag 'name']
-echo $resultat.'enregistrement(s) affecté(s) par la requête INSERT';
-var_dump($resultat);
-}
+$pdo = new PDO('mysql:host=localhost;dbname=entreprise', 'root', '', array(
+	PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING,
+	PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'
+));
+
+if ($_POST)
+	{
+	$resultat = $pdo->exec("INSERT INTO employes(reference,categorie,titre,description,couleur,taille,prix,stock) VALUES('$_POST[reference]','$_POST[categorie]','$_POST[titre]','$_POST[description]','$_POST[couleur]','$_POST[taille]','$_POST[prix]','$_POST[stock]')");
+
+	// ici nous avons fait une requête d'insertion. On y entre les données issues de la base de donnée. Puis on récupère les valeurs grâce à la méthode '$pdo->exec'. On y introduit les valeurs grâce à $_POST et comme indice [ce qu'il ya dans le tag 'name']
+
+	echo $resultat . 'enregistrement(s) affecté(s) par la requête INSERT';
+	var_dump($resultat);
+	}
+
+
 ?>
 
 <h2>Formulaire Boutique</h2>
