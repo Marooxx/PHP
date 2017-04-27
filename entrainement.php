@@ -250,7 +250,7 @@ echo '<hr><h2> Conditions SWITCH</h2>';
 
 $couleur = 'jaune';
 switch($couleur){// les 'case' représente des cas différents dans lesquel nous pouvons potentiellement tomber
-	case 'bleu':
+	case 'bleu'://'bleu' est l'une  des valeurs possibles de la variable $couleur
 	echo " vous aimez le bleu";
 	break;// le break arrête le script si la condition est 'true'
 	case 'rouge':
@@ -348,7 +348,7 @@ echo"</table>";
 //--------------- création de tableau avec une boucle imbriquée ------------------------------
 
 echo "<table  border ='1' style='border-collapse:collapse;' >";
-for($ligne =0 ; $ligne <10 ; $ligne++){// on doit prévoir le nombre de ligne à créer que l'on souhaite avant de lancer la balise <tr>
+for($ligne =0 ; $ligne <10 ; $ligne++){// on doit prévoir le nombre de ligne à créer que l'on souhaite avant de lancer la balise <tr> et la boucle
 	echo '<tr>';
 // 2eme boucle imbriquée
 for($cellule= 0;$cellule <10; $cellule++){
@@ -618,3 +618,14 @@ echo $objet->prenom.'<br>';
 // la flèche " -> " permet d'aller extraire un élément de mon objet
 echo $objet->age.' ans'.'<br>';
 // Nous pouvons piocher dans un ARRAY avec les crochets[].
+
+//-- Nouvelle Exercice avant création du site --- -------------------
+/*Enoncé : Créer une BDD boutique qui contient une table de produits
+Champs de la table : id_produit,réference,catégorie,titre,description,couleur,taille,prix,stock
+
+Créer un formulaire premettant des produits dans la base données
+*/
+echo '<hr>';
+?>
+
+
