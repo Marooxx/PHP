@@ -24,7 +24,7 @@ $resultat = $mysqli->query($req);==>On exécute la requête reçue en argument
 */
 
 /////////*** FONCTION DEBUG******************************************************//
-//debug($_POST);
+debug($_POST);
 function debug($var,$mode = 1){//$var va réceptionner et va permetter de comparer une variable
 	echo '<div style="background:orange;padding:5px; float:right;clear:both;">';
 	$trace = debug_backtrace();// permet de retourner des infos sur le fichier et la ligne sur lesquels ont travaille
