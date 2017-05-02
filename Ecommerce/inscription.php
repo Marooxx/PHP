@@ -1,6 +1,7 @@
 ﻿
 <?php
-require_once('inc/init.php');
+require_once('Inc/init.php');
+require_once('Inc/haut_inc.php');
 
 //debug($_POST);
 if($_POST){
@@ -84,7 +85,7 @@ le "+" est là pour indiquer les lettres autorisées peuvent être utisées plus
 	
 </form>
 <?php
-require_once("inc/bas_inc.php");
+require_once("Inc/bas_inc.php");
 
 
 ?>

@@ -1,8 +1,18 @@
 
 
 <?php
-require_once ('inc/init.php');
+require_once ('Inc/init.php');
+//----------------- TRAITEMENT PHP----------------------
 
+if(isset($_GET['action']) && $_GET['action'] == "deconnexion"){
+	session_destroy();
+}
+debug($_GET);
+if(internauteConnecte()){
+/* si l'internanute est déjà connecté, il n 'a rien à faire sur la page connexion
+Nous le redirigeons sur la page profil.De cette manière, nous afficherons le formulaire de connxion uniquement aux membres non connectés*/
+	header("location:profil.php");
+}
 require_once ('inc/haut_inc.php');
 
 ?>
@@ -58,6 +68,6 @@ echo $contenu
 ?>
 
 <?php
-require_once ('inc/bas_inc.php');
+require_once ('Inc/bas_inc.php');
 
 ?>

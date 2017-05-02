@@ -44,8 +44,31 @@ Cette fonction va nous éviter d'avoir à effectuer des"print_r" et des "var_dum
 ++ la fonction "debug_backtrace()" est une fonction prédéfinie retournant un tableau ARRAY contenant des infos tel que la ligne et le fichier où est éxécutée la fonction
 ++ "array_shift" extrait la première valeur d'un tableau et la retourne
 */
+//**********************************
+// fonction va savoir si l'internaute est connecté
+function internauteConnecte(){
+	if(!isset($_SESSION['membre'])){
+// si la session "membre" est non définie( elle ne peux être que définie si nous sommes passés par la page connexion avec le bon mot de passe) 
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+/*----------------------Commentaires-----------------------
+Cette fonction m'indique si le membre est connecté (une fonction retourne toujours false par défault)
 
-
-
+/******************************************************/
+// fonction pour connaître si l'internaute est admin  ou simple membre
+function statutMembre(){// statut = Admin
+	if(internauteConnecte() && $_SESSION['membre']['statut']== 1){
+// si la session membre est définie , nous regardons si il est admin. Si c'est le cas, nous retournons 'true'
+		return true;
+	}
+	return false;
+	// on ne met pas de "else" car la fonction renvoie un  false par défaut
+}
+/*--------- Commentaires----------------------*/
+/*cette fonction indique si le membre est admin*/
 
 

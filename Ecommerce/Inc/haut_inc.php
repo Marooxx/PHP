@@ -3,7 +3,8 @@
 <html>
   <head>
     <title>Mon site</title>
-	<link rel="stylesheet" href="inc/css/style.css">
+	<link rel="stylesheet" href="<?php echo URL;?>Inc/css/style.css">
+<!-- c'est ici qu'on indiquera l'adresse URL de notre site-->
 	</head>
 	<body>
 	 <header>
@@ -12,11 +13,35 @@
 				<a href="" title="Mon site">Mon site.com</a>
 			</span>
 			<nav>
-				<a href="inscription.php">Inscription</a>
-				<a href="connexion.php">Connexion</a>
-				<a href="boutique.php">Boutique</a>
-				<a href="panier.php">Panier</a>
+			
+			<?php
+			if(statutMembre()){
+				echo'<a href="' .URL.'admin/gestion_membre.php">Gestion des membres</a>';
+				echo'<a href="'.URL.'admin/gestion_commande.php">Gestion des commandes</a>';
+				echo'<a href="'.URL.'admin/gestion_commande.php">Gestion de la boutique</a>';
+			}
+			if(internauteConnecte()){
+				/* "if" et non "else if" afin que cette condition s'applique aux membres et aux
+				admins*/
+				// en ne mettant pas de "else if", cela donne à l'administrateur l'accès à tout le site et donc au second "if". Le second "if" sera aussi évalué.
+				echo'<a href="' .URL.'profil.php">Voir mon profil</a>';
+				echo'<a href="' .URL.'boutique.php">Accès à la boutique</a>';
+				echo'<a href="' .URL.'panier.php">Voir votre panier</a>';
+				echo'<a href="' .URL.'connexion.php?action=deconnexion">Se déconnecter</a>';
+			}
+			else{// le cas par défault sera le visiteur non membre
+				echo'<a href="' .URL.'inscription.php">Inscription</a>';
+				echo'<a href="' .URL.'connexion.php">Connexion</a>';
+				echo'<a href="' .URL.'boutique.php">Voir la boutique</a>';
+				echo'<a href="' .URL.'panier.php">Voir mon panier</a>';
 				
+			}
+			/* visiteur= 4 liens
+			   membre = 4 liens
+			   Admin = 7 liens
+			*/
+			
+			?>	
 			<nav>
 		</div>
 	</header>
