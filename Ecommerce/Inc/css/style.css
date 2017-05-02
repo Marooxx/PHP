@@ -18,7 +18,7 @@ section{padding: 30px;min-height: 800px;}
 footer{background: #000;color:white; text-align: center;padding : 7px 0;}
 
 /************************* GESTION DES ERREURS**********************/
-.erreur{background: #ff0000;padding: 5px;margin: 5px;}
+.error{background: #ff0000;padding: 5px;margin: 5px;}
 .validation{background: #669933;padding : 5px;margin: 5px;}
 .cadre{border:1px solid c0c0c0;width:30%;}
 .cadre h2{background:#c0c0c0;margin:0;text-align : center;font-size:15px;padding: 5px;}

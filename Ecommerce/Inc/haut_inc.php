@@ -22,6 +22,3 @@
 	</header>
 	<section>
 	<div class="conteneur">
-<?php
-require_once("inc/bas_inc.php");
-?>

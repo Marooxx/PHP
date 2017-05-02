@@ -29,9 +29,10 @@ CHOIX D'OPERATION : <select name="operation" value=" operation">
 <?php
  
  
- if ( isset($_POST['nbr1']) &&  isset ($_POST['nbr2']) &&  isset($_POST['operation'] )){
+ if ( isset($_POST['nbr1']) &&  isset($_POST['nbr2']) &&  isset($_POST['operation'] ))
+ {
  
-   if ( !empty ( $_POST['nbr1'] ) && !empty( $_POST['nbr2'] ) && !empty( $_POST['operation'] )){
+   
     
     
    $n1=$_POST['nbr1'];
@@ -41,33 +42,32 @@ CHOIX D'OPERATION : <select name="operation" value=" operation">
     
    switch($opr) {
  
-   case'+': $c=$n1+$n2 ;
-                echo " la resultat est : $c" ;
+   case'+': $resultat=$n1+$n2 ;
+                echo " la resultat est : ".$resultat  ;
                 break;
    case'-': $c=$n1-$n2 ;
-                echo " la resultat est : $c" ;
+                echo " la resultat est : ".$resultat ;
                 break;
    case'*': $c=$n1*$n2 ;
-                echo " la resultat est : $c" ;
+                echo " la resultat est : ".$resultat ;
                 break;
                  
    case'/': if($n2!=0){
                 $c=$n1/$n2 ;
-                echo " la resultat est : $c" ;}
+                echo " la resultat est :".$resultat ;
+			}
                 else echo"Erreur, Division impossible par zéro !";
                 break;
                  
      
-    case'%':if($n2 != 0){
-                $c=$n1%$n2 ;
-                echo " la resultat est : $c" ;}
+    
                 else echo"Erreur, Division impossible par zéro !";
                 break;
                  
-                default :ECHO" SVP choisissez un operation a effectué";
+                default :echo" SVP choisissez un operation a effectué";
     
    }
-   }
+   
    else echo" une de vous variable est vide"; }
    else echo" une de vous variable n'existe pas";
 ?>

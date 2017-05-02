@@ -24,12 +24,12 @@ $resultat = $mysqli->query($req);==>On exécute la requête reçue en argument
 */
 
 /////////*** FONCTION DEBUG******************************************************//
-debug($_POST);
+//debug($_POST);
 function debug($var,$mode = 1){//$var va réceptionner et va permetter de comparer une variable
 	echo '<div style="background:orange;padding:5px; float:right;clear:both;">';
 	$trace = debug_backtrace();// permet de retourner des infos sur le fichier et la ligne sur lesquels ont travaille
-	$trace = array_shift();// va selectionner la 1ere partie du tableau
-	echo"Debug demandé dans le fichier : $trace[file] à la ligne $trace [line].<hr>";
+	$trace = array_shift($trace);// va selectionner la 1ere partie du tableau
+	echo"Debug demandé dans le fichier : $trace[file] à la ligne $trace[line].<hr>";
 	if($mode==1){
 		echo"<pre>";print_r($var);echo'</pre>';
 	}

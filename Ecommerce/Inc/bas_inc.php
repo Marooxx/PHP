@@ -1,11 +1,10 @@
-<?php
-require_once("inc/haut_inc.php");
-?>
+
+
 </div>
 	</section>
 <footer>
 <div class="conteneur">
-<?php echo date('Y')?> - Tous droits réservés
+<?php echo date('Y')?> - Tous droits rÃ©servÃ©s
 </div>
 </footer>
 </body>
