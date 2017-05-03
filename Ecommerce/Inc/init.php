@@ -7,7 +7,7 @@ if($mysqli->connect_error)die("un problème est survenu lors de la connexion à la
 //----------Ouverture de session
 session_start();// on démarre la session
 //----------- Chemin
-define("RACINE_SITE",$_SERVER['DOCUMENT_ROOT']."/Ecommerce/");
+define("RACINE_SITE", $_SERVER['DOCUMENT_ROOT'] . "/github/PHP/Ecommerce/");
 define("URL","http://localhost/github/PHP/Ecommerce/");
 
 //**************VARIABLES************************/

@@ -16,9 +16,9 @@
 			
 			<?php
 			if(statutMembre()){
-				echo'<a href="' .URL.'admin/gestion_membre.php">Gestion des membres</a>';
-				echo'<a href="'.URL.'admin/gestion_commande.php">Gestion des commandes</a>';
-				echo'<a href="'.URL.'admin/gestion_commande.php">Gestion de la boutique</a>';
+				echo'<a href="' .URL.'admin/gestionMembres.php">Gestion des membres</a>';
+				echo'<a href="'.URL.'admin/gestionCommandes.php">Gestion des commandes</a>';
+				echo'<a href="'.URL.'admin/gestionBoutique.php">Gestion de la boutique</a>';
 			}
 			if(internauteConnecte()){
 				/* "if" et non "else if" afin que cette condition s'applique aux membres et aux
