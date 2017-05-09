@@ -33,7 +33,7 @@ if(!empty($_POST)){
 } 
 //------------- LIENS PRODUITS------------//
 $contenu .= '<a href="?action=affichage">Affichage des membres</a><br>';
-
+//$contenu.="<br><button><a href='gestionMembres.php?categorie=" . $['']."'> Retour vers la page des membres ".$['']."</a></button>";
 
 //---------------- AFFICHAGE PRODUITS--------------------------//
 if(isset($_GET['action']) && $_GET['action'] == 'affichage')

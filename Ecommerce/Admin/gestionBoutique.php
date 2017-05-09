@@ -3,11 +3,11 @@ require_once("../Inc/init.php");
 //---------- SUPPRESSION PRODUIT----------------
 if(isset($_GET['action']) && $_GET['action'] == "suppression")
 {
-$contenu .='<div class="validation">Suppression de produit : ' . $GET['id_produit'] . '</div>';
+$contenu .='<div class="validation">Suppression de produit : ' . $_GET['id_produit'] . '</div>';
 $resultat = executeRequete("DELETE FROM produit WHERE id_produit= '$_GET[id_produit]'");
-$_GET['action']='affichage';	
+$_GET['action']='affichage';
 }
-//debug($_POST);// on vérifie tous les champs 
+//debug($_POST);// on vérifie tous les champs
 //--------------- ENREGISTREMENT DE PRODUIT------------------------
 if(!empty($_POST)){
 	$photo_bdd="";
@@ -30,7 +30,7 @@ if(!empty($_POST)){
 		$contenu.="<div class='validation'>Votre produit a bien été enregistré</div>";
 		$_GET['action'] = 'affichage';
 
-	} 
+	}
 //------------- LIENS PRODUITS------------//
 $contenu .= '<a href="?action=affichage">Affichage des produits</a><br>';
 $contenu .= '<a href="?action=ajout">Ajout d\'un produit</a><br><br><br>';
@@ -41,41 +41,41 @@ if(isset($_GET['action']) && $_GET['action'] == 'affichage'){// Au momemnt où o
 	$contenu .= '<h2> Affichage des produits</h2>';
 	$contenu .= 'Nombre de produits dans la boutique : '.$resultat->num_rows;// on compte le nombre de produits dans la table "produit" grâce à num_rows
 	$contenu .= '<table border = "1" cellpadding ="5"><tr>';
-	
-	while($colonne = $resultat->fetch_field()){// on récupère le nom des champs 
+
+	while($colonne = $resultat->fetch_field()){// on récupère le nom des champs
 		$contenu .='<th>'. $colonne->name . '</th>';// affiche le nom de colonne de chaque champs
 	}// $colonne faite de la classe STD
 	// on crée 2 entêtes supplementaires : suppression et modification
 		$contenu .='<th>Modification</th>';
 		$contenu .='<th>Suppression</th>';
 		$contenu .= '</tr>';
-	
-		
+
+
 	while($ligne = $resultat->fetch_assoc()){/* on transforme $ligne en tableau par la méthode fetch_assoc()
 ) et rend les informations de $resultat exploitable*/
 		$contenu .='<tr>';
 		foreach($ligne as $indice=>$information){//foreach(..as..) va parcourir tout le tableau pour récolter les infos
 			if($indice =="photo"){
-			// on donne une dimension au image 
+			// on donne une dimension au image
 				$contenu .='<td><img src="' .$information . '"width="70" height="70"></td>';
 			}
 			else{
 				//sinon elle affiche les informations normalement
 				$contenu .='<td>' . $information . '</td>';
 			}
-			
-		
+
+
 		}
 		// en fonction de l'id_produit que j'envois sur l'url , cela lance l'action suppression ou modification
 		$contenu .= '<td><a href="?action=modification&id_produit='.$ligne['id_produit'] .'"><img src="../Inc/img/edit.png"></a></td>';
 		$contenu .= '<td><a href="?action=suppression&id_produit='.$ligne['id_produit'] .'"onClick="return(confirm(\'Êtes vous certain de vouloir supprimer cet article?\'));"><img src="../Inc/img/delete.png"></a></td>';
-		
-		
+
+
 		$contenu .="</tr>";
-	 
+
 	}
 	$contenu .="</table><br><hr><br>";
-	
+
 }
 
 
@@ -86,10 +86,10 @@ if(isset($_GET['action']) && ($_GET['action'] == 'ajout' || $_GET['action'] == '
 {
 	if(isset($_GET['id_produit']))
 	{
-		
+
 		$resultat = executeRequete("SELECT*FROM produit WHERE id_produit= $_GET[id_produit]");// on récupère les informations sur l'article à modifier
 		$produit_actuel = $resultat->fetch_assoc();/*on rend les informations exploitables afin de les présaisir dans les cases du formulaire*/
-		
+
 	}
 	//  Au moment où je clique sur modification , je récupère les données du produit
 	$id_produit = (isset($produit_actuel['id_produit']))?$produit_actuel['id_produit']:'';
@@ -103,15 +103,15 @@ if(isset($_GET['action']) && ($_GET['action'] == 'ajout' || $_GET['action'] == '
 	$photo = (isset($produit_actuel['photo']))?$produit_actuel['photo']:'';
 	$stock = (isset($produit_actuel['stock']))?$produit_actuel['stock']:'';
 	$prix = (isset($produit_actuel['prix']))?$produit_actuel['prix']:'';
-	
-	
-	
-	
-	
-	
-	
-	
-// on va crée un champs caché pour pouvoir récupérer  les données de l'id_produit	
+
+
+
+
+
+
+
+
+// on va crée un champs caché pour pouvoir récupérer  les données de l'id_produit
 echo'<form method="post" enctype="multipart/form-data" action="">
 <h2>FORMULAIRE DES PRODUITS</h2><br>
 
@@ -158,7 +158,7 @@ echo'<form method="post" enctype="multipart/form-data" action="">
 if(!empty($photo))
 {
 	echo'<i>Vous pouvez uploader une nouvelle photo si vous souhaitez la modifier</i><br>';
-	echo'<img src="'.$photo.'" width="90" height="90"><br>';	
+	echo'<img src="'.$photo.'" width="90" height="90"><br>';
 }
 echo'
 <label for="stock">Stock</label><br>
@@ -173,8 +173,3 @@ echo'
 }
 require_once("../Inc/bas_inc.php");
 // on va récupérer les données de l'url via le formulaire grâce au "value"
-
-
-
-
-

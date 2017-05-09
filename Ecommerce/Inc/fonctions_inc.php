@@ -7,10 +7,10 @@ function executeRequete($req)
 	$resultat = $mysqli->query($req);
 	if(!$resultat)
 	{
-	 die("Erreur sur la requête sql.<br>Message : " .$mysqli->error."<br>Code : ".$req );// si la requête échoue on va "mourir(die)" avec le message d'erreur	
-	 // mysqli-> error permet de piocher les informations dans la variable pour savoir si il existe des erreurs 
+	 die("Erreur sur la requête sql.<br>Message : " .$mysqli->error."<br>Code : ".$req );// si la requête échoue on va "mourir(die)" avec le message d'erreur
+	 // mysqli-> error permet de piocher les informations dans la variable pour savoir si il existe des erreurs
 		// avec die() , le script s'interrompt.
-	
+
 	}
 	return $resultat;
 	// on retourne un objet issu de la classe mysqli_result(en cas de requête SELECT, autre requête: true ou false)
@@ -35,7 +35,7 @@ function debug($var,$mode = 1){//$var va réceptionner et va permetter de compar
 	}
 	else{
 		echo"<pre>";var_dump($var);echo'</pre>';
-		
+
 	}
 	echo "</div>";
 }
@@ -48,7 +48,7 @@ Cette fonction va nous éviter d'avoir à effectuer des"print_r" et des "var_dum
 // fonction va savoir si l'internaute est connecté
 function internauteConnecte(){
 	if(!isset($_SESSION['membre'])){
-// si la session "membre" est non définie( elle ne peux être que définie si nous sommes passés par la page connexion avec le bon mot de passe) 
+// si la session "membre" est non définie( elle ne peux être que définie si nous sommes passés par la page connexion avec le bon mot de passe)
 		return false;
 	}
 	else{
@@ -71,4 +71,73 @@ function statutMembre(){// statut = Admin
 /*--------- Commentaires----------------------*/
 /*cette fonction indique si le membre est admin*/
 
+/**** PANIER /COMMANDE/PAIEMENT*****/
+//--------------- PANIER / COMMANDE / PAIEMENT --------------//
+function creationPanier()
+{
+// Crrer un tableau qui s'appelle panier qui permet de stocker les infos pour le titre, l'id_produit, la quantité et le prix
+	if(!isset($_SESSION['panier']))
+	{
+		$_SESSION['panier'] = array();
+		$_SESSION['panier']['titre'] = array();
+		$_SESSION['panier']['id_produit'] = array();
+		$_SESSION['panier']['quantite'] = array();
+		$_SESSION['panier']['prix'] = array();
+	}
+}
+//Soit le panier n'existe pas, on le crée, on retourne TRUE
+//soit le panier éxiste déjà, on retourne directement TRUE
+//------------------------------------------------
+// Cette fonction permet d'ajouter un produit au panier
+function ajouterProduitDansPanier($titre,$id_produit,$quantite,$prix)
+{
+	creationPanier();
+	// Nous devons savoir si l'id_produit que l'on souhaite ajouter, est déjà présent dans la session du panier ou non
 
+	$position_produit=array_search($id_produit,$_SESSION['panier']['id_produit']);
+	if($position_produit!=false)//retourne un chiffre pour savoir  si le produit existe
+	{
+		$_SESSION['panier']['quantite'][$position_produit] += $quantite;
+		// Nous allons directement à l'indice de ce produit et nous ajoutons la nouvelle quantité
+	}
+	else
+	// sinon  si l'id_produit du produit ciblé n'existe pas dans le panier,on ajoute l'id_produit du produit dans un nouvel indice du tableau.
+
+	{
+		// on crée des variables de réceptions
+		$_SESSION['panier']['titre'][]=$titre;// les crochets[] vides permettent de mettre ou passer à  l'indice suivant
+		$_SESSION['panier']['id_produit'][]=$id_produit;
+		$_SESSION['panier']['quantite'][]=$quantite;
+		$_SESSION['panier']['prix'][]=$prix;
+
+	}
+
+}
+
+/************************ FONCTION MONTANT TOTAL*****************************/
+function montantTotal()
+{
+	$total = 0;
+	for($i=0; $i<count($_SESSION['panier']['id_produit']);$i++)
+	{// la boucle va se positionner à l'indice de mon tableau
+	// TANT QUE $i est inférieur au nombre de produit dans le panier(suite)
+		$total += $_SESSION['panier']['quantite'][$i]*$_SESSION['panier']['prix'][$i];
+	}/*(suite) on va multiplier la quantite par le prix
+	exp= 1*10€ ou 3*10€ sans remplacer, pour autant, la dernière valeur contenu dans la variable $total
+	 */
+	return round($total,2);
+	//prix total pour tous les produits avec 2 chiffres après la virgule max.
+}
+/*************************** RETIRER UN PRODUIT DU PANIER***************************/
+function retirerProduitDuPanier($id_produit_a_supprimer)
+{
+	$position_produit = array_search($id_produit_a_supprimer,$_SESSION['panier']['id_produit']);
+	# array_search () permet de rechercher l'id du produit
+	if ($position_produit !=false)
+	{
+		array_splice($_SESSION['panier']['titre'],$position_produit,1);
+		array_splice($_SESSION['panier']['id_produit'],$position_produit,1);
+		array_splice($_SESSION['panier']['quantite'],$position_produit,1);
+		array_splice($_SESSION['panier']['prix'],$position_produit,1);
+	}   # array_splice permet de remonter les indices ,de remplacer un indice et de supprimer 1 seule ligne
+}
