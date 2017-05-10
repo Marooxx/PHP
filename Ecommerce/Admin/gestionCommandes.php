@@ -40,12 +40,11 @@ if(isset($_GET['action']) && $_GET['action'] == 'affichage')
 {// Au momemnt où on clique , on rentre dans la condition
 	$resultat = executeRequete("SELECT*FROM commande");// on sélectionne tous les produits
 	$contenu .= '<h2> Affichage des commandes</h2>';
-	$contenu .= 'Nombre des commandes : '.$resultat->num_rows;// on compte le nombre de produits dans la table "produit" grâce à num_rows
+	$contenu .= 'Nombre de commande(s) : '.$resultat->num_rows;// on compte le nombre de produits dans la table "produit" grâce à num_rows
 	$contenu .= '<table border = "1" cellpadding ="5"><tr>';
 
 	while($colonne = $resultat->fetch_field())
-	{
-		// on récupère le nom des champs
+	{// on récupère le nom des champs
 		$contenu .='<th>'. $colonne->name . '</th>';// affiche le nom de colonne de chaque champs
 	}// $colonne faite de la classe STD
 	// on crée 2 entêtes supplementaires : suppression et modification
@@ -135,39 +134,38 @@ echo'<form method="post" enctype="multipart/form-data" action="">
 
 </form>';
 }
+
+
 if(isset($_GET['action']) && $_GET['action'] == 'details')
 {
 
-    $resultat = executeRequete("SELECT * FROM details_commande WHERE id_commande='$_GET[id_commande]'");
+    $resultat = executeRequete("SELECT * FROM details_commande WHERE id_commande='" . $_GET['id_commande'] . "' ");
     // si le membre a un tableau vide
 
 
-    echo'<p>Vos dernières commandes : </p>';
-    /*echo "<table><tr>";
-    echo '<thead><tr><th>N° Commande</th><th>N° Membre</th><th>Montant</th><th>Date</th><th>Etat</th><th>Détail commande</th></tr></thead><tbody>';*/
-    while($ligne = $resultat->fetch_assoc())
-    {
-        if(empty($ligne)){
-            echo "<h4><p>vous n'avez pas encore de commandes</h4>";
-        }
-        else
-            {
+
+				debug($_GET);
+				echo "<table border='1';border-collapse=collapse>";
+				echo "<thead><tr><th>N° Commande</th><th>Produit</th><th>Montant</th><th>Quantité</th><th>Détail commande</th></tr></thead>";
+				while($ligne = $resultat->fetch_assoc())
+				{
                 echo "<tr>";
-                echo "<td>".$ligne['id_details_commande']."</td>";
+
                 echo "<td>".$ligne['id_commande']."</td>";
                 echo "<td>".$ligne['id_produit']."</td>";
+                echo "<td>".$ligne['prix']."€"."</td>";
                 echo "<td>".$ligne['quantite']."</td>";
-                echo "<td>".$ligne['prix']."</td>";
+				echo "<td>".$ligne['id_details_commande']."</td>";
                 echo "</tr>";
-            }
-    }
-   /*
-    echo "</tbody></table>";
-    echo "</div>";
-    echo "</div>";
-    */
-// on va récupérer les données de l'url via le formulaire grâce au "value"
+				}
+				echo"</table>";
+            
 }
+
+
+
+
+
 
 
 require_once("../Inc/bas_inc.php");

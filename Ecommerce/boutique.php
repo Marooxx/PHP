@@ -21,8 +21,8 @@ $contenu .="<div class='boutique-droite'>";
 if(isset($_GET['categorie']))// une action se lance lorsque l'on clique sur un lien.On récupère le type de catégorie une fois sur le URL. On entre donc dans le IF
 {
 	$donnees=executeRequete("SELECT id_produit,reference,titre,photo,prix FROM produit WHERE categorie ='$_GET[categorie]'");
-	
-	While($produit = $donnees->fetch_assoc())// la boucle va tourner tant qu'il y aura d"éléments en lien avec la catégorie(titre,photo,id_produit,prix)
+
+	while($produit = $donnees->fetch_assoc())// la boucle va tourner tant qu'il y aura d"éléments en lien avec la catégorie(titre,photo,id_produit,prix)
 	{
 		//debug($produit);
 		// on crée à chaque tour de boucle une DIV avec son contenu
