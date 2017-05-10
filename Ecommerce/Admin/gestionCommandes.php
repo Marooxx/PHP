@@ -1,15 +1,15 @@
 <?php
 require_once("../Inc/init.php");
 
-/* Réaliser la page gestionCommande
+/* Réaliser la page membre
 Affichage sous forme de tableau HTML l'ensemble de la table membre en BDD
 Faites en sorte de pouvoir modifier et supprimer un membre
 */
 
-//---------- SUPPRESSION COMMANDE----------------
+//---------- SUPPRESSION MEMBRE----------------
 if(isset($_GET['action']) && $_GET['action'] == "suppression")
 {
-$contenu .='<div class="validation">Suppression de commande : ' . $GET['id_commande'] . '</div>';
+$contenu .='<div class="validation">Suppression de votre article : ' . $GET['id_commande'] . '</div>';
 $resultat = executeRequete("DELETE FROM commande WHERE id_commande= '$_GET[id_commande]'");
 $_GET['action']='affichage';
 }
@@ -23,8 +23,8 @@ if(!empty($_POST)){
 			$_POST[$indice] = htmlentities(addSlashes($valeur));// traduit le html avec htmlentities()
 		}
 		// Executer une requête d'insertion permettant d'insérer un produit dans la base
-		executeRequete("REPLACE INTO commande (/*id_details_commande,id_commande,id_produit,*/quantite,prix) VALUES(/*'$_POST[id_details_commande]','$_POST[id_commande]','$_POST[id_produit]',*/'$_POST[quantite]','$_POST[prix]')");
-		$contenu.="<div class='validation'>Nous avons bien enregistré votre commande!</div>";
+		executeRequete("REPLACE INTO commande (id_commande,id_membre,montant,date_enregistrement,etat) VALUES('$_POST[id_commande]','$_POST[id_membre]','$_POST[montant]','$_POST[date_enregistrement]','$_POST[etat]')");
+		$contenu.="<div class='validation'>Nous avons bien enregistré votre commande</div>";
 		$_GET['action'] = 'affichage';
 
 	}
@@ -38,10 +38,9 @@ $contenu .= '<a href="?action=affichage">Affichage des commandes</a><br>';
 //---------------- AFFICHAGE PRODUITS--------------------------//
 if(isset($_GET['action']) && $_GET['action'] == 'affichage')
 {// Au momemnt où on clique , on rentre dans la condition
-    $resultat = executeRequete("SELECT*FROM commande");// on sélectionne tous les produits
-
+	$resultat = executeRequete("SELECT*FROM commande");// on sélectionne tous les produits
 	$contenu .= '<h2> Affichage des commandes</h2>';
-	$contenu .= 'Nombre de commande(s) : '.$resultat->num_rows;// on compte le nombre de produits dans la table "produit" grâce à num_rows
+	$contenu .= 'Nombre des commandes : '.$resultat->num_rows;// on compte le nombre de produits dans la table "produit" grâce à num_rows
 	$contenu .= '<table border = "1" cellpadding ="5"><tr>';
 
 	while($colonne = $resultat->fetch_field())
@@ -51,6 +50,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'affichage')
 	}// $colonne faite de la classe STD
 	// on crée 2 entêtes supplementaires : suppression et modification
 		$contenu .='<th>Modification</th>';
+		$contenu .='<th>Details</th>';
 		$contenu .='<th>Suppression</th>';
 		$contenu .= '</tr>';
 
@@ -67,9 +67,10 @@ if(isset($_GET['action']) && $_GET['action'] == 'affichage')
 			}
 
 		$contenu .= '<td><a href="?action=modification&id_commande='.$ligne['id_commande'] .'"><img src="../Inc/img/edit.png"></a></td>';
-		$contenu .= '<td><a href="?action=suppression&id_commande='.$ligne['id_commande'] .'"onClick="return(confirm(\'Êtes vous certain de vouloir nous quitter?\'));"><img src="../Inc/img/delete.png"></a></td>';
+		$contenu .= '<td><a href="?action=details&id_commande='.$ligne['id_commande'] .'"><img src="../Inc/img/details.png"></a></td>';
+		$contenu .= '<td><a href="?action=suppression&id_commande='.$ligne['id_commande'] .'"onClick="return(confirm(\'Êtes-vous certain de vouloir annuler la commande ?\'));"><img src="../Inc/img/delete.png"></a></td>';
 		}
-		// en fonction de l'id_commande que j'envois sur l'url , cela lance l'action suppression ou modification
+		// en fonction de l'id_produit que j'envois sur l'url , cela lance l'action suppression ou modification
 
 
 
@@ -88,17 +89,17 @@ if(isset($_GET['action']) &&  $_GET['action'] == 'modification')
 	if(isset($_GET['id_commande']))
 	{
 
-		$resultat = executeRequete("SELECT*FROM commande WHERE id_commande= $_GET[id_commande]");// on récupère les informations sur l'article à modifier
+		$resultat = executeRequete("SELECT*FROM commande WHERE id_commande= '$_GET[id_commande]'");// on récupère les informations sur l'article à modifier
 		$commande_actuelle = $resultat->fetch_assoc();/*on rend les informations exploitables afin de les présaisir dans les cases du formulaire*/
 
 	}
 	//  Au moment où je clique sur modification , je récupère les données du membre
-	$id_details_commande = (isset($commande_actuelle['id_details_commande']))?$commande_actuelle['id_details_commande']:'';
 	$id_commande = (isset($commande_actuelle['id_commande']))?$commande_actuelle['id_commande']:'';
-	$id_produit = (isset($commande_actuelle['id_produit']))?$commande_actuelle['id_produit']:'';
+	$id_membre = (isset($commande_actuelle['id_commande']))?$commande_actuelle['id_membre']:'';
+	$montant = (isset($commande_actuelle['montant']))?$commande_actuelle['montant']:'';
+	$date_enregistrement = (isset($commande_actuelle['date_enregistrement']))?$commande_actuelle['date_enregistrement']:'';
 	$quantite = (isset($commande_actuelle['quantite']))?$commande_actuelle['quantite']:'';
-	$prix = (isset($commande_actuelle['prix']))?$commande_actuelle['prix']:'';
-
+	$etat= (isset($commande_actuelle['etat']))?$commande_actuelle['etat']:'';
 
 
 
@@ -108,18 +109,24 @@ if(isset($_GET['action']) &&  $_GET['action'] == 'modification')
 
 // on va crée un champs caché pour pouvoir récupérer  les données de l'id_produit
 echo'<form method="post" enctype="multipart/form-data" action="">
-<h2>FORMULAIRE DE COMMANDE </h2><br>
+<h2>FORMULAIRE DES COMMANDES </h2><br>
 
-<input type="hidden" id="id_details_commande" name="id_details_commande" value="'.$id_details_commande.'"><br>
+<input type="hidden" id="id_commande" name="id_commande" value="'.$id_commande.'"><br>
 
-<label for="id_produit">Identifiant du produit</label><br>
-<input id="id_produit" type="hidden" name="id_produit" value="'.$id_produit.'"><br><br>
+<label for="id_membre">Membre</label><br>
+<input id="id_membre" type="text" name="id_membre"  value="'.$id_membre.'"><br><br>
 
-<label for="quantite_">Quantite</label><br>
-<input id="quantite" type="text" name="quantite"  value="'.$quantite.'"><br><br>
+<label for="montant">Montant de votre commande</label><br>
+<input id="montant" type="text" name="montant"value="'.$montant.'"><br><br>
 
-<label for="prix">Prix</label><br>
-<input id="prix" type="text" name="prix" value="'.$prix.'"><br><br>
+<label for="date_enregistrement">Enregistrement de votre commande</label><br>
+<input id="date_enregistrement" type="text" name="date_enregistrement" value="'.$date_enregistrement.'"><br><br>
+
+<label for="quantite">Quantité</label><br>
+<input id="quantité" type="text" name="quantite"  value="'.$quantite.'"><br><br>
+
+<label for="etat">Etat de votre commande</label><br>
+<input id="etat" type="text" name="etat"  value="'.$etat.'"><br><br>
 
 
 
@@ -128,43 +135,39 @@ echo'<form method="post" enctype="multipart/form-data" action="">
 
 </form>';
 }
-
-// on va récupérer les données de l'url via le formulaire grâce au "value"
-if($_GET)
+if(isset($_GET['action']) && $_GET['action'] == 'details')
 {
-    $resultat = executeRequete("SELECT * FROM details_commande WHERE id_commande= '$_GET[id_commande]'");
 
-    $contenu .= '<h2>Affichage des détails de la commande</h2>';
-    //$contenu .= 'Nombre de commandes : ' . $resultat->num_rows;
-    $contenu .= '<table border="1" cellpading="5"><tr>';
+    $resultat = executeRequete("SELECT * FROM details_commande WHERE id_commande='$_GET[id_commande]'");
+    // si le membre a un tableau vide
 
-    while($colonne = $resultat->fetch_field())
+
+    echo'<p>Vos dernières commandes : </p>';
+    /*echo "<table><tr>";
+    echo '<thead><tr><th>N° Commande</th><th>N° Membre</th><th>Montant</th><th>Date</th><th>Etat</th><th>Détail commande</th></tr></thead><tbody>';*/
+    while($ligne = $resultat->fetch_assoc())
     {
-        $contenu .= '<th>' . $colonne->name . '</th>';
-    }
-
-    $contenu .= '</tr>';
-
-    while ($ligne = $resultat->fetch_assoc()) {
-        $contenu .= '<tr>';
-        foreach ($ligne as $indice => $information) {
-                $contenu .= '<td>' . $information . '</td>';
+        if(empty($ligne)){
+            echo "<h4><p>vous n'avez pas encore de commandes</h4>";
         }
-
+        else
+            {
+                echo "<tr>";
+                echo "<td>".$ligne['id_details_commande']."</td>";
+                echo "<td>".$ligne['id_commande']."</td>";
+                echo "<td>".$ligne['id_produit']."</td>";
+                echo "<td>".$ligne['quantite']."</td>";
+                echo "<td>".$ligne['prix']."</td>";
+                echo "</tr>";
+            }
     }
-
-    $contenu .= '</table><br><hr><br>';
+   /*
+    echo "</tbody></table>";
+    echo "</div>";
+    echo "</div>";
+    */
+// on va récupérer les données de l'url via le formulaire grâce au "value"
 }
-echo $contenu;
-
-
-
-
-
-
-
-
-
 
 
 require_once("../Inc/bas_inc.php");
