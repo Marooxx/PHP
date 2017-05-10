@@ -3,7 +3,7 @@
 <html>
   <head>
     <title>Mon site</title>
-	<link rel="stylesheet" href="<?php echo URL;?>Inc/css/style.css">
+	<link rel="stylesheet" href="/github/PHP/Ecommerce/Inc/css/style.css">
 <!-- c'est ici qu'on indiquera l'adresse URL de notre site-->
 	</head>
 	<body>
@@ -13,7 +13,7 @@
 				<a href="" title="Mon site">Mon site.com</a>
 			</span>
 			<nav>
-			
+
 			<?php
 			if(statutMembre()){
 				echo'<a href="' .URL.'admin/gestionMembres.php">Gestion des membres</a>';
@@ -34,14 +34,14 @@
 				echo'<a href="' .URL.'connexion.php">Connexion</a>';
 				echo'<a href="' .URL.'boutique.php">Voir la boutique</a>';
 				echo'<a href="' .URL.'panier.php">Voir mon panier</a>';
-				
+
 			}
 			/* visiteur= 4 liens
 			   membre = 4 liens
 			   Admin = 7 liens
 			*/
-			
-			?>	
+
+			?>
 			<nav>
 		</div>
 	</header>

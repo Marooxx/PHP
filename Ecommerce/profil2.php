@@ -1,21 +1,7 @@
+
 <?php
 require_once('Inc/init.php');
-// si le membre n'est pas connect� , il ne doit pas avoir acc�s � la page profil.
-if(!internauteConnecte()){
-	header("location:connexion.php");
-}
-
 require_once("Inc/haut_inc.php");
-?>
-<?php
-debug($_SESSION);// D�s lors que la "session_start" est inscrite,les sessions sont disponibles sur toutes les pages du site
-
-
-
-
-// Exercice : Afficher sur la page profil , le pseudo , email,ville,code postal,adresse du membre connect� en passant par le fichier $_SESSION
-
-// Pour afficher le contenu des tableaux , on cr�� une variable de r�ception pour contenir toutes les informations et pouvoir les afficher
 $contenu.="<p class ='centre'>Bonjour<strong>".$_SESSION['membre']['pseudo']." </strong></p><br>";
 //echo $contenu;
 $contenu.="<div class='cadre'><h2>Voici les informations de votre profil</h2><br>";
@@ -27,6 +13,7 @@ $contenu.='<p> Votre code postal est : '.$_SESSION['membre']['code_postal'].'<p>
 $contenu.='<p> Votre nom est : '.$_SESSION['membre']['email'].'<p><br>';
 
 echo $contenu;
+//-------------------
 echo "<h2> Suivi des commandes</h2>";
 $suivi_des_commandes = executeRequete("SELECT DISTINCT etat , id_commande FROM commande WHERE id_membre = '" .$_SESSION['membre']['id_membre']."'");
 
@@ -57,10 +44,5 @@ if(isset($_GET['action'])&& $_GET['action'])
 }
 
 
-?>
-
-<?php
-// BAS DE PAGE
-require_once("Inc/bas_inc.php");
 
 ?>
